@@ -1,0 +1,7 @@
+{
+  "name": "Fashion by Liza",
+  "description": "An exquisite online jewelry gallery featuring curated collections and the artistry of Fashion by Liza in North York, Ontario.",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}
