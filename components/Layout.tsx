@@ -11,6 +11,12 @@ const Layout: React.FC<LayoutProps> = ({ children, onNavigate }) => {
   const [isOnlineOrderOpen, setIsOnlineOrderOpen] = useState(false);
   const [isLogoModalOpen, setIsLogoModalOpen] = useState(false);
   const [showShopifyComingSoon, setShowShopifyComingSoon] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  const handleMobileNavigate = (page: string) => {
+    setIsMobileMenuOpen(false);
+    onNavigate(page);
+  };
   const mapUrl = "https://maps.app.goo.gl/bVieHvzqcKZqzgwKA";
   const phoneNumber = "+14383088851";
   const displayPhone = "+1 (438) 308-8851";
@@ -26,17 +32,25 @@ const Layout: React.FC<LayoutProps> = ({ children, onNavigate }) => {
       <nav className="sticky top-0 z-50 bg-gradient-to-r from-stone-50 via-amber-50/80 to-stone-50 backdrop-blur-md border-b border-amber-300/40 shadow-md shadow-amber-100/50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-20">
-            <div className="flex items-center space-x-12">
+            <div className="flex items-center space-x-4 lg:space-x-12">
               <button 
                 onClick={() => setIsLogoModalOpen(true)}
-                className="flex items-center transition-all duration-300 hover:scale-125 cursor-pointer"
+                className="flex items-center transition-all duration-300 hover:scale-110 cursor-pointer"
                 title="Click to view logo"
               >
                 <img 
                   src="/images/logo.png" 
                   alt="Fashion by Liza" 
-                  className="h-16 w-auto drop-shadow-sm hover:drop-shadow-lg transition-all duration-300"
+                  className="h-14 lg:h-16 w-auto drop-shadow-sm hover:drop-shadow-lg transition-all duration-300"
                 />
+              </button>
+              
+              {/* Brand Name - visible on mobile */}
+              <button 
+                onClick={() => onNavigate('home')}
+                className="lg:hidden text-amber-900 font-serif text-lg tracking-wide"
+              >
+                <span className="font-bold">Fashion</span> <span className="italic text-amber-700">by Liza</span>
               </button>
               
               <div className="hidden lg:flex items-center space-x-8">
@@ -103,7 +117,8 @@ const Layout: React.FC<LayoutProps> = ({ children, onNavigate }) => {
               </div>
             </div>
 
-            <div className="flex items-center space-x-4">
+            {/* Desktop Right Side */}
+            <div className="hidden lg:flex items-center space-x-4">
               <button onClick={() => onNavigate('contact')} className="text-amber-900 hover:text-amber-600 transition-all duration-300 uppercase text-[10px] tracking-[0.2em] font-bold hover:drop-shadow-sm mr-4 border-r border-amber-300 pr-6">Contact</button>
               <a href={instagramUrl} target="_blank" rel="noopener noreferrer" className="text-amber-700 hover:text-[#E4405F] transition-all duration-300 hover:scale-110" title="Instagram">
                 <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
@@ -129,23 +144,136 @@ const Layout: React.FC<LayoutProps> = ({ children, onNavigate }) => {
                 <span className="text-xs font-bold tracking-wide" style={{fontFamily: 'Georgia, serif', fontStyle: 'italic'}}>Etsy</span>
               </a>
             </div>
+
+            {/* Mobile Hamburger Button */}
+            <button 
+              onClick={() => setIsMobileMenuOpen(true)}
+              className="lg:hidden text-amber-900 p-2"
+            >
+              <svg className="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+              </svg>
+            </button>
           </div>
         </div>
       </nav>
+
+      {/* Mobile Menu Overlay */}
+      {isMobileMenuOpen && (
+        <div className="fixed inset-0 z-[200] lg:hidden">
+          {/* Backdrop */}
+          <div 
+            className="absolute inset-0 bg-black/50 backdrop-blur-sm"
+            onClick={() => setIsMobileMenuOpen(false)}
+          />
+          
+          {/* Menu Panel */}
+          <div className="absolute right-0 top-0 h-full w-80 bg-gradient-to-b from-amber-50 to-white shadow-2xl overflow-y-auto">
+            {/* Close Button */}
+            <div className="flex justify-between items-center p-6 border-b border-amber-200">
+              <span className="text-amber-900 font-serif text-lg">Menu</span>
+              <button 
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="text-amber-900 p-2"
+              >
+                <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
+
+            {/* Navigation Links */}
+            <div className="p-6 space-y-1">
+              <button onClick={() => handleMobileNavigate('home')} className="block w-full text-left py-3 px-4 text-amber-900 hover:bg-amber-100 rounded-lg font-medium transition-colors">
+                Home
+              </button>
+              <button onClick={() => handleMobileNavigate('shop')} className="block w-full text-left py-3 px-4 text-amber-900 hover:bg-amber-100 rounded-lg font-medium transition-colors">
+                Collections
+              </button>
+              <button onClick={() => handleMobileNavigate('contact')} className="block w-full text-left py-3 px-4 text-amber-900 hover:bg-amber-100 rounded-lg font-medium transition-colors">
+                Contact
+              </button>
+              <button onClick={() => handleMobileNavigate('heritage')} className="block w-full text-left py-3 px-4 text-amber-900 hover:bg-amber-100 rounded-lg font-medium transition-colors">
+                Our Heritage
+              </button>
+              <button onClick={() => handleMobileNavigate('terms')} className="block w-full text-left py-3 px-4 text-amber-900 hover:bg-amber-100 rounded-lg font-medium transition-colors">
+                Terms & Policy
+              </button>
+            </div>
+
+            {/* Online Order Section */}
+            <div className="px-6 py-4 border-t border-amber-200">
+              <p className="text-[10px] uppercase tracking-widest text-amber-700 font-bold mb-3">Shop Online</p>
+              <a 
+                href={etsyUrl} 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="block py-3 px-4 text-amber-900 hover:bg-amber-100 rounded-lg font-medium transition-colors"
+              >
+                <span style={{fontFamily: 'Georgia, serif', fontStyle: 'italic'}}>Etsy</span> Store
+              </a>
+              <button 
+                onClick={() => {
+                  setIsMobileMenuOpen(false);
+                  setShowShopifyComingSoon(true);
+                }}
+                className="block w-full text-left py-3 px-4 text-amber-900 hover:bg-amber-100 rounded-lg font-medium transition-colors"
+              >
+                Shopify <span className="text-[8px] bg-amber-200 text-amber-800 px-2 py-0.5 rounded-full ml-2">Soon</span>
+              </button>
+            </div>
+
+            {/* Social Links */}
+            <div className="px-6 py-4 border-t border-amber-200">
+              <p className="text-[10px] uppercase tracking-widest text-amber-700 font-bold mb-4">Follow Us</p>
+              <div className="flex space-x-4">
+                <a href={instagramUrl} target="_blank" rel="noopener noreferrer" className="text-amber-700 hover:text-[#E4405F] transition-colors">
+                  <svg className="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                  </svg>
+                </a>
+                <a href={tiktokUrl} target="_blank" rel="noopener noreferrer" className="text-amber-700 hover:text-black transition-colors">
+                  <svg className="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.9-.32-1.98-.23-2.81.31-.75.42-1.24 1.25-1.33 2.1-.1 1.1.41 2.23 1.32 2.87.52.38 1.18.57 1.83.56 1.05-.05 2.03-.62 2.63-1.48.56-.82.73-1.82.69-2.81V.02z"/>
+                  </svg>
+                </a>
+                <a href={facebookUrl} target="_blank" rel="noopener noreferrer" className="text-amber-700 hover:text-[#1877F2] transition-colors">
+                  <svg className="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                  </svg>
+                </a>
+                <a href={youtubeUrl} target="_blank" rel="noopener noreferrer" className="text-amber-700 hover:text-[#FF0000] transition-colors">
+                  <svg className="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                  </svg>
+                </a>
+              </div>
+            </div>
+
+            {/* Contact Info */}
+            <div className="px-6 py-4 border-t border-amber-200">
+              <p className="text-[10px] uppercase tracking-widest text-amber-700 font-bold mb-3">Call Us</p>
+              <a href={`tel:${phoneNumber}`} className="text-amber-900 font-bold text-lg hover:text-amber-700 transition-colors">
+                {displayPhone}
+              </a>
+            </div>
+          </div>
+        </div>
+      )}
 
       <main className="flex-grow">
         {children}
       </main>
 
-      <footer className="bg-gradient-to-b from-stone-900 via-stone-800 to-stone-900 text-stone-100 py-24 border-t border-amber-800/30">
+      <footer className="bg-gradient-to-b from-stone-900 via-stone-800 to-stone-900 text-stone-100 py-12 md:py-16 border-t border-amber-800/30">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-16">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-8 md:gap-12">
             <div className="col-span-1 md:col-span-2">
-              <h2 className="font-serif text-3xl mb-8 tracking-widest uppercase bg-gradient-to-r from-amber-300 via-yellow-400 to-amber-300 bg-clip-text text-transparent">FASHION BY LIZA</h2>
+              <h2 className="font-serif text-2xl md:text-3xl mb-4 tracking-widest uppercase bg-gradient-to-r from-amber-300 via-yellow-400 to-amber-300 bg-clip-text text-transparent">FASHION BY LIZA</h2>
               <p className="text-stone-400 max-w-sm text-sm leading-loose font-light">
                 Established in 2025. Bridging traditional artistry with modern Canadian design. Based in North York, serving all of North America.
               </p>
-              <div className="mt-8 flex flex-wrap items-center gap-4">
+              <div className="mt-4 flex flex-wrap items-center gap-3">
                 <a href={instagramUrl} target="_blank" rel="noopener noreferrer" className="text-stone-400 hover:text-[#E4405F] transition-all duration-300 hover:scale-110 flex items-center space-x-2" title="Instagram">
                   <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
                   <span className="text-[10px] uppercase tracking-widest font-bold">Instagram</span>
@@ -173,8 +301,8 @@ const Layout: React.FC<LayoutProps> = ({ children, onNavigate }) => {
             </div>
             
             <div>
-              <h3 className="font-bold text-[10px] uppercase tracking-widest mb-8 bg-gradient-to-r from-amber-400 to-amber-500 bg-clip-text text-transparent">Visit Our Boutique</h3>
-              <div className="text-stone-400 text-xs leading-loose space-y-4 font-light">
+              <h3 className="font-bold text-[10px] uppercase tracking-widest mb-4 bg-gradient-to-r from-amber-400 to-amber-500 bg-clip-text text-transparent">Visit Our Store</h3>
+              <div className="text-stone-400 text-xs leading-loose space-y-2 font-light">
                 <a href={mapUrl} target="_blank" rel="noopener noreferrer" className="block hover:text-white transition-colors italic">
                   1700 Wilson Ave Unit# 51<br />North York, ON M3L 1B2, Canada
                 </a>
@@ -185,8 +313,8 @@ const Layout: React.FC<LayoutProps> = ({ children, onNavigate }) => {
             </div>
 
             <div>
-              <h3 className="font-bold text-[10px] uppercase tracking-widest mb-8 bg-gradient-to-r from-amber-400 to-amber-500 bg-clip-text text-transparent">Information</h3>
-              <ul className="space-y-4 text-stone-400 text-xs tracking-widest uppercase font-bold">
+              <h3 className="font-bold text-[10px] uppercase tracking-widest mb-4 bg-gradient-to-r from-amber-400 to-amber-500 bg-clip-text text-transparent">Information</h3>
+              <ul className="space-y-2 text-stone-400 text-xs tracking-widest uppercase font-bold">
                 <li><button onClick={() => onNavigate('shop')} className="hover:text-white transition-colors">Collections</button></li>
                 <li><button onClick={() => onNavigate('heritage')} className="hover:text-white transition-colors">Our Heritage</button></li>
                 <li><button onClick={() => onNavigate('contact')} className="hover:text-white transition-colors">Contact Us</button></li>
@@ -194,7 +322,7 @@ const Layout: React.FC<LayoutProps> = ({ children, onNavigate }) => {
             </div>
           </div>
           
-          <div className="mt-24 pt-8 border-t border-amber-800/30 flex flex-col md:flex-row justify-between items-center text-stone-400 text-[10px] tracking-widest uppercase space-y-4 md:space-y-0 font-bold">
+          <div className="mt-10 pt-6 border-t border-amber-800/30 flex flex-col md:flex-row justify-between items-center text-stone-400 text-[10px] tracking-widest uppercase space-y-3 md:space-y-0 font-bold">
             <div>Copyright &copy; {new Date().getFullYear()} Fashion by Liza - All Rights Reserved.</div>
             <div>
               <button 

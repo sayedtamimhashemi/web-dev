@@ -32,7 +32,7 @@ const App: React.FC = () => {
           <img 
             src="/images/jewelry-workshop.webp" 
             alt="Fashion by Liza Jewelry Workshop" 
-            className="w-full h-full object-cover object-center"
+            className="w-full h-full object-cover object-[70%_center] md:object-center"
             onError={(e) => {
               e.currentTarget.style.display = 'none';
             }}
@@ -100,7 +100,7 @@ const App: React.FC = () => {
 
       {/* Featured Gallery */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col md:flex-row justify-between items-end mb-16 space-y-6 md:space-y-0">
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 space-y-6 md:space-y-0">
           <div className="max-w-md">
             <h2 className="text-[10px] uppercase tracking-[0.4em] font-bold bg-gradient-to-r from-amber-800 to-amber-700 bg-clip-text text-transparent mb-6">Featured Pieces</h2>
             <h3 className="text-4xl md:text-5xl font-serif tracking-tight bg-gradient-to-r from-stone-900 via-amber-900 to-stone-900 bg-clip-text text-transparent">Our Bestsellers</h3>
@@ -117,9 +117,9 @@ const App: React.FC = () => {
   );
 
   const renderHeritage = () => (
-    <div className="pb-24">
+    <div className="pb-12">
       {/* Hero Section with Original Image */}
-      <section className="relative h-[70vh] flex items-center justify-center text-center">
+      <section className="relative h-[50vh] md:h-[60vh] flex items-center justify-center text-center">
         <div className="absolute inset-0">
           <img 
             src="/images/jewelry-hero.jpeg" 
@@ -139,8 +139,8 @@ const App: React.FC = () => {
       </section>
 
       {/* About Section */}
-      <section className="max-w-5xl mx-auto px-4 py-24">
-        <div className="text-center mb-16">
+      <section className="max-w-5xl mx-auto px-4 py-12 md:py-16">
+        <div className="text-center mb-10">
           <h2 className="text-[10px] uppercase tracking-[0.5em] font-bold bg-gradient-to-r from-amber-800 to-amber-700 bg-clip-text text-transparent mb-6">Meet Liza</h2>
           <h3 className="text-4xl font-serif bg-gradient-to-r from-stone-900 via-amber-900 to-stone-900 bg-clip-text text-transparent mb-8">The Heart Behind the Brand</h3>
           <p className="text-stone-600 text-lg font-light leading-relaxed max-w-3xl mx-auto">
@@ -148,7 +148,7 @@ const App: React.FC = () => {
           </p>
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center mt-20">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center mt-10">
           <div className="bg-gradient-to-br from-amber-50 to-white p-8 border-2 border-amber-200/50 shadow-lg">
             <h4 className="text-2xl font-serif mb-4 bg-gradient-to-r from-stone-800 via-amber-800 to-stone-800 bg-clip-text text-transparent">2025: A New Beginning</h4>
             <p className="text-stone-600 text-sm leading-relaxed font-light mb-4">
