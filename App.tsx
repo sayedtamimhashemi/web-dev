@@ -30,25 +30,24 @@ const App: React.FC = () => {
       <section className="relative h-[95vh] flex items-center overflow-hidden">
         <div className="absolute inset-0">
           <img 
-            src="/images/jewelry-hero.jpeg" 
-            alt="Fashion by Liza Jewelry Collection" 
+            src="/images/jewelry-workshop.webp" 
+            alt="Fashion by Liza Jewelry Workshop" 
             className="w-full h-full object-cover object-center"
             onError={(e) => {
-              // Fallback if image not found
               e.currentTarget.style.display = 'none';
             }}
           />
-          <div className="absolute inset-0 bg-gradient-to-br from-amber-900/20 via-stone-900/30 to-amber-800/20 backdrop-blur-[1px]" />
-          <div className="absolute inset-0 bg-gradient-to-t from-stone-900/60 via-amber-900/20 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-br from-stone-900/40 via-stone-800/30 to-amber-900/30" />
+          <div className="absolute inset-0 bg-gradient-to-t from-stone-900/70 via-transparent to-stone-900/20" />
         </div>
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-white z-10">
           <div className="max-w-3xl">
             <h1 className="text-6xl md:text-9xl font-serif mb-8 leading-none tracking-tight drop-shadow-2xl text-white">
-              The House of <br />
+              Fashion by <br />
               <span className="italic bg-gradient-to-r from-amber-200 via-amber-100 to-amber-200 bg-clip-text text-transparent drop-shadow-lg">Liza</span>
             </h1>
             <p className="text-xl md:text-2xl text-amber-50 max-w-xl mb-12 font-light leading-relaxed drop-shadow-lg">
-              Where heritage meets modern brilliance. Discover curated elegance and bespoke craftsmanship in the heart of North York.
+              Your destination for stunning, handcrafted jewelry. From elegant necklaces to custom designs, we bring your vision to life with passion and artistry.
             </p>
             <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-6">
               <button 
@@ -71,8 +70,8 @@ const App: React.FC = () => {
       {/* Boutique Details Highlight */}
       <section className="py-20 bg-gradient-to-b from-white via-amber-50/40 to-white border-y border-amber-200/50">
         <div className="max-w-7xl mx-auto px-4 text-center">
-          <h2 className="text-[10px] uppercase tracking-[0.4em] font-bold bg-gradient-to-r from-amber-800 to-amber-700 bg-clip-text text-transparent mb-6">Come See Us</h2>
-          <p className="text-stone-600 font-light mb-8 max-w-xl mx-auto">We'd love to meet you in person. Stop by our boutique and let us help you find the perfect piece.</p>
+          <h2 className="text-[10px] uppercase tracking-[0.4em] font-bold bg-gradient-to-r from-amber-800 to-amber-700 bg-clip-text text-transparent mb-6">Visit Our Boutique</h2>
+          <p className="text-stone-600 font-light mb-8 max-w-xl mx-auto">We'd love to welcome you! Come explore our collection in person and let us help you find something special.</p>
           <div className="space-y-6">
             <a href={mapUrl} target="_blank" rel="noopener noreferrer" className="inline-block group">
               <p className="font-serif text-4xl bg-gradient-to-r from-stone-900 via-amber-900 to-stone-900 bg-clip-text text-transparent group-hover:from-amber-800 group-hover:via-amber-700 group-hover:to-amber-800 transition-all duration-300">1700 Wilson Ave Unit# 51</p>
@@ -103,10 +102,10 @@ const App: React.FC = () => {
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col md:flex-row justify-between items-end mb-16 space-y-6 md:space-y-0">
           <div className="max-w-md">
-            <h2 className="text-[10px] uppercase tracking-[0.4em] font-bold bg-gradient-to-r from-amber-800 to-amber-700 bg-clip-text text-transparent mb-6">Signature Edit</h2>
-            <h3 className="text-4xl md:text-5xl font-serif tracking-tight bg-gradient-to-r from-stone-900 via-amber-900 to-stone-900 bg-clip-text text-transparent">A Legacy of Light</h3>
+            <h2 className="text-[10px] uppercase tracking-[0.4em] font-bold bg-gradient-to-r from-amber-800 to-amber-700 bg-clip-text text-transparent mb-6">Featured Pieces</h2>
+            <h3 className="text-4xl md:text-5xl font-serif tracking-tight bg-gradient-to-r from-stone-900 via-amber-900 to-stone-900 bg-clip-text text-transparent">Our Bestsellers</h3>
           </div>
-          <button onClick={() => setCurrentPage('shop')} className="text-[10px] uppercase tracking-widest font-bold border-b-2 border-amber-700 pb-2 hover:text-amber-800 hover:border-amber-800 transition-all duration-300 hover:shadow-sm">View Gallery</button>
+          <button onClick={() => setCurrentPage('shop')} className="text-[10px] uppercase tracking-widest font-bold border-b-2 border-amber-700 pb-2 hover:text-amber-800 hover:border-amber-800 transition-all duration-300 hover:shadow-sm">View All</button>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-16">
           {PRODUCTS.slice(0, 3).map(product => (
@@ -119,30 +118,55 @@ const App: React.FC = () => {
 
   const renderHeritage = () => (
     <div className="pb-24">
-      <section className="relative h-[60vh] flex items-center justify-center text-center">
+      {/* Hero Section with Original Image */}
+      <section className="relative h-[70vh] flex items-center justify-center text-center">
         <div className="absolute inset-0">
-          <img src="https://images.unsplash.com/photo-1531995811006-35cb42e1a022?q=80&w=2000" className="w-full h-full object-cover opacity-60" alt="Boutique heritage" />
-          <div className="absolute inset-0 bg-gradient-to-br from-amber-100/60 via-white/70 to-amber-100/60" />
-          <div className="absolute inset-0 bg-gradient-to-t from-white via-transparent to-white/50" />
+          <img 
+            src="/images/jewelry-hero.jpeg" 
+            alt="Fashion by Liza Signature Collection" 
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-br from-stone-900/50 via-amber-900/30 to-stone-900/50" />
+          <div className="absolute inset-0 bg-gradient-to-t from-stone-900/80 via-transparent to-stone-900/40" />
         </div>
-        <div className="relative max-w-3xl px-4">
-          <h2 className="text-[10px] uppercase tracking-[0.5em] font-bold bg-gradient-to-r from-amber-800 to-amber-700 bg-clip-text text-transparent mb-6">Our Story</h2>
-          <h3 className="text-5xl md:text-6xl font-serif mb-8 bg-gradient-to-r from-stone-900 via-amber-900 to-stone-900 bg-clip-text text-transparent">The Heritage of Liza</h3>
-          <p className="text-stone-600 text-lg font-light leading-relaxed">
-            Hi, I'm Liza. What started as a dream in my small North York studio has grown into something I never imagined. Every piece I create comes straight from my heart. I design jewelry that tells your story, celebrates your special moments, and becomes part of your legacy. For me, this isn't just about fashion. It's about real connection, honest craftsmanship, and the beautiful journey we share together.
+        <div className="relative max-w-4xl px-4">
+          <h2 className="text-[10px] uppercase tracking-[0.5em] font-bold text-amber-300 mb-6">Our Story</h2>
+          <h3 className="text-5xl md:text-7xl font-serif mb-8 text-white drop-shadow-2xl">Crafted with Love</h3>
+          <p className="text-amber-50 text-xl font-light leading-relaxed max-w-2xl mx-auto">
+            Where passion meets precision. Every piece tells a story of elegance, dedication, and timeless beauty.
           </p>
         </div>
       </section>
-      
-      <section className="max-w-5xl mx-auto px-4 py-24 space-y-24">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
-          <div>
-            <h4 className="text-2xl font-serif mb-4 bg-gradient-to-r from-stone-800 via-amber-800 to-stone-800 bg-clip-text text-transparent">2025: Where It All Began</h4>
+
+      {/* About Section */}
+      <section className="max-w-5xl mx-auto px-4 py-24">
+        <div className="text-center mb-16">
+          <h2 className="text-[10px] uppercase tracking-[0.5em] font-bold bg-gradient-to-r from-amber-800 to-amber-700 bg-clip-text text-transparent mb-6">Meet Liza</h2>
+          <h3 className="text-4xl font-serif bg-gradient-to-r from-stone-900 via-amber-900 to-stone-900 bg-clip-text text-transparent mb-8">The Heart Behind the Brand</h3>
+          <p className="text-stone-600 text-lg font-light leading-relaxed max-w-3xl mx-auto">
+            Hi, I'm Liza! What started as a dream in my small North York studio has grown into something I never imagined. Every piece I create comes straight from my heart. I design jewelry that tells your story, celebrates your special moments, and becomes part of your legacy. For me, this isn't just about fashion. It's about real connection, honest craftsmanship, and the beautiful journey we share together.
+          </p>
+        </div>
+        
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center mt-20">
+          <div className="bg-gradient-to-br from-amber-50 to-white p-8 border-2 border-amber-200/50 shadow-lg">
+            <h4 className="text-2xl font-serif mb-4 bg-gradient-to-r from-stone-800 via-amber-800 to-stone-800 bg-clip-text text-transparent">2025: A New Beginning</h4>
+            <p className="text-stone-600 text-sm leading-relaxed font-light mb-4">
+              I still remember the day I opened my doors on Wilson Avenue. The excitement, the nerves, the overwhelming joy of finally bringing my vision to life.
+            </p>
             <p className="text-stone-600 text-sm leading-relaxed font-light">
-              I still remember the day I opened my doors on Wilson Avenue. The excitement, the nerves, the overwhelming joy of finally bringing my vision to life. Every morning, I walk into my studio knowing that today, I get to create something beautiful. Whether it's sketching a new design, carefully selecting the perfect stones, or working with my hands to bring a piece to life, this is where I feel most at home. Each piece carries a little bit of me, and I hope it becomes a treasured part of your story too.
+              Every morning, I walk into my studio knowing that today, I get to create something beautiful. Whether it's sketching a new design, carefully selecting the perfect stones, or working with my hands to bring a piece to life, this is where I feel most at home.
             </p>
           </div>
-          <img src="https://images.unsplash.com/photo-1626784215021-2e39ccf971cd?q=80&w=800" className="rounded-lg shadow-xl shadow-amber-900/20 grayscale hover:grayscale-0 transition-all duration-500" alt="Artisan hands" />
+          <div className="bg-gradient-to-br from-amber-50 to-white p-8 border-2 border-amber-200/50 shadow-lg">
+            <h4 className="text-2xl font-serif mb-4 bg-gradient-to-r from-stone-800 via-amber-800 to-stone-800 bg-clip-text text-transparent">Our Promise to You</h4>
+            <p className="text-stone-600 text-sm leading-relaxed font-light mb-4">
+              Quality is everything. Each piece is handcrafted with attention to every detail, using only the finest materials. We believe jewelry should last a lifetime and beyond.
+            </p>
+            <p className="text-stone-600 text-sm leading-relaxed font-light">
+              When you wear Fashion by Liza, you're not just wearing jewelry. You're wearing a piece of art, a story, and a promise of excellence.
+            </p>
+          </div>
         </div>
       </section>
     </div>
