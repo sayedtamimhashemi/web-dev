@@ -8,7 +8,9 @@ interface LayoutProps {
 
 const Layout: React.FC<LayoutProps> = ({ children, onNavigate }) => {
   const [isDiscoverOpen, setIsDiscoverOpen] = useState(false);
+  const [isOnlineOrderOpen, setIsOnlineOrderOpen] = useState(false);
   const [isLogoModalOpen, setIsLogoModalOpen] = useState(false);
+  const [showShopifyComingSoon, setShowShopifyComingSoon] = useState(false);
   const mapUrl = "https://maps.app.goo.gl/bVieHvzqcKZqzgwKA";
   const phoneNumber = "+14383088851";
   const displayPhone = "+1 (438) 308-8851";
@@ -40,7 +42,6 @@ const Layout: React.FC<LayoutProps> = ({ children, onNavigate }) => {
               <div className="hidden lg:flex items-center space-x-8">
                 <button onClick={() => onNavigate('home')} className="text-amber-900 hover:text-amber-600 transition-all duration-300 uppercase text-[10px] tracking-[0.2em] font-bold hover:drop-shadow-sm">Home</button>
                 <button onClick={() => onNavigate('shop')} className="text-amber-900 hover:text-amber-600 transition-all duration-300 uppercase text-[10px] tracking-[0.2em] font-bold hover:drop-shadow-sm">Collections</button>
-                <button onClick={() => onNavigate('contact')} className="text-amber-900 hover:text-amber-600 transition-all duration-300 uppercase text-[10px] tracking-[0.2em] font-bold hover:drop-shadow-sm">Contact</button>
                 
                 {/* Discover Dropdown */}
                 <div 
@@ -66,10 +67,44 @@ const Layout: React.FC<LayoutProps> = ({ children, onNavigate }) => {
                     </div>
                   )}
                 </div>
+
+                {/* Online Order Dropdown */}
+                <div 
+                  className="relative h-20 flex items-center"
+                  onMouseEnter={() => setIsOnlineOrderOpen(true)}
+                  onMouseLeave={() => setIsOnlineOrderOpen(false)}
+                >
+                  <button className="text-amber-900 hover:text-amber-600 transition-all duration-300 uppercase text-[10px] tracking-[0.2em] font-bold flex items-center hover:drop-shadow-sm">
+                    Online Order
+                    <svg className={`ml-1 h-3 w-3 transition-transform duration-300 ${isOnlineOrderOpen ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                    </svg>
+                  </button>
+                  
+                  {isOnlineOrderOpen && (
+                    <div className="absolute top-full left-0 w-48 bg-gradient-to-br from-amber-50 to-white shadow-xl border border-amber-300/50 py-4 px-5">
+                      <p className="text-[9px] uppercase tracking-widest text-amber-800 mb-3 font-bold">Shop Online</p>
+                      <a href={etsyUrl} target="_blank" rel="noopener noreferrer" className="text-amber-900 hover:text-[#F56400] text-sm font-medium flex items-center transition-colors mb-3">
+                        <span style={{fontFamily: 'Georgia, serif', fontStyle: 'italic'}} className="mr-1">Etsy</span>
+                        <svg className="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                        </svg>
+                      </a>
+                      <button 
+                        onClick={() => setShowShopifyComingSoon(true)}
+                        className="text-amber-900 hover:text-amber-600 text-sm font-medium block transition-colors"
+                      >
+                        Shopify
+                        <span className="ml-2 text-[8px] bg-amber-200 text-amber-800 px-2 py-0.5 rounded-full">Soon</span>
+                      </button>
+                    </div>
+                  )}
+                </div>
               </div>
             </div>
 
             <div className="flex items-center space-x-4">
+              <button onClick={() => onNavigate('contact')} className="text-amber-900 hover:text-amber-600 transition-all duration-300 uppercase text-[10px] tracking-[0.2em] font-bold hover:drop-shadow-sm mr-4 border-r border-amber-300 pr-6">Contact</button>
               <a href={instagramUrl} target="_blank" rel="noopener noreferrer" className="text-amber-700 hover:text-[#E4405F] transition-all duration-300 hover:scale-110" title="Instagram">
                 <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
                   <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
@@ -90,10 +125,8 @@ const Layout: React.FC<LayoutProps> = ({ children, onNavigate }) => {
                   <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
                 </svg>
               </a>
-              <a href={etsyUrl} target="_blank" rel="noopener noreferrer" className="text-amber-700 hover:text-[#F56400] transition-all duration-300 hover:scale-110" title="Etsy">
-                <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M8.564 2.445c0-.325.033-.52.59-.52h7.465c1.3 0 2.02 1.11 2.54 3.003l.42 1.693c.05.22.05.22.07.27h1.12c.27 0 .5.1.67.28.17.17.28.4.28.67v1.3c0 .52-.42.94-.94.94h-1.12v8.36c0 .83-.1 1.46-.3 1.9-.2.44-.5.73-.9.88-.4.15-.9.22-1.5.22-.6 0-1.08-.05-1.44-.15-.36-.1-.6-.25-.72-.45-.12-.2-.18-.45-.18-.75v-1.3c0-.27.1-.5.28-.67.17-.17.4-.28.67-.28h.5c.27 0 .5-.1.67-.28.17-.17.28-.4.28-.67V9.66c0-.27-.1-.5-.28-.67-.17-.17-.4-.28-.67-.28h-1.12c-.05 0-.1-.02-.14-.05-.04-.03-.07-.08-.09-.14l-.42-1.69c-.2-.8-.5-1.2-.9-1.2H9.154c-.27 0-.5.1-.67.28-.17.17-.28.4-.28.67v1.3c0 .27.1.5.28.67.17.17.4.28.67.28h.5c.27 0 .5.1.67.28.17.17.28.4.28.67v8.36c0 .27-.1.5-.28.67-.17.17-.4.28-.67.28h-.5c-.27 0-.5.1-.67.28-.17.17-.28.4-.28.67v1.3c0 .27.1.5.28.67.17.17.4.28.67.28h.5c.27 0 .5.1.67.28.17.17.28.4.28.67v1.3c0 .52-.42.94-.94.94H5.564c-.52 0-.94-.42-.94-.94V3.945c0-.52.42-.94.94-.94h1.12c.27 0 .5-.1.67-.28.17-.17.28-.4.28-.67v-1.3z"/>
-                </svg>
+              <a href={etsyUrl} target="_blank" rel="noopener noreferrer" className="text-amber-700 hover:text-[#F56400] transition-all duration-300 hover:scale-110 flex items-center" title="Etsy">
+                <span className="text-xs font-bold tracking-wide" style={{fontFamily: 'Georgia, serif', fontStyle: 'italic'}}>Etsy</span>
               </a>
             </div>
           </div>
@@ -134,10 +167,7 @@ const Layout: React.FC<LayoutProps> = ({ children, onNavigate }) => {
                   <span className="text-[10px] uppercase tracking-widest font-bold">YouTube</span>
                 </a>
                 <a href={etsyUrl} target="_blank" rel="noopener noreferrer" className="text-stone-400 hover:text-[#F56400] transition-all duration-300 hover:scale-110 flex items-center space-x-2" title="Etsy">
-                  <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M8.564 2.445c0-.325.033-.52.59-.52h7.465c1.3 0 2.02 1.11 2.54 3.003l.42 1.693c.05.22.05.22.07.27h1.12c.27 0 .5.1.67.28.17.17.28.4.28.67v1.3c0 .52-.42.94-.94.94h-1.12v8.36c0 .83-.1 1.46-.3 1.9-.2.44-.5.73-.9.88-.4.15-.9.22-1.5.22-.6 0-1.08-.05-1.44-.15-.36-.1-.6-.25-.72-.45-.12-.2-.18-.45-.18-.75v-1.3c0-.27.1-.5.28-.67.17-.17.4-.28.67-.28h.5c.27 0 .5-.1.67-.28.17-.17.28-.4.28-.67V9.66c0-.27-.1-.5-.28-.67-.17-.17-.4-.28-.67-.28h-1.12c-.05 0-.1-.02-.14-.05-.04-.03-.07-.08-.09-.14l-.42-1.69c-.2-.8-.5-1.2-.9-1.2H9.154c-.27 0-.5.1-.67.28-.17.17-.28.4-.28.67v1.3c0 .27.1.5.28.67.17.17.4.28.67.28h.5c.27 0 .5.1.67.28.17.17.28.4.28.67v8.36c0 .27-.1.5-.28.67-.17.17-.4.28-.67.28h-.5c-.27 0-.5.1-.67.28-.17.17-.28.4-.28.67v1.3c0 .27.1.5.28.67.17.17.4.28.67.28h.5c.27 0 .5.1.67.28.17.17.28.4.28.67v1.3c0 .52-.42.94-.94.94H5.564c-.52 0-.94-.42-.94-.94V3.945c0-.52.42-.94.94-.94h1.12c.27 0 .5-.1.67-.28.17-.17.28-.4.28-.67v-1.3z"/>
-                  </svg>
-                  <span className="text-[10px] uppercase tracking-widest font-bold">Etsy</span>
+                  <span className="text-sm font-bold" style={{fontFamily: 'Georgia, serif', fontStyle: 'italic'}}>Etsy</span>
                 </a>
               </div>
             </div>
@@ -181,28 +211,28 @@ const Layout: React.FC<LayoutProps> = ({ children, onNavigate }) => {
       {/* Logo Modal */}
       {isLogoModalOpen && (
         <div 
-          className="fixed inset-0 z-[100] flex items-center justify-center bg-black/70 backdrop-blur-sm animate-in fade-in duration-300"
+          className="fixed inset-0 z-[100] flex items-center justify-center bg-black/80 backdrop-blur-md animate-in fade-in duration-300"
           onClick={() => setIsLogoModalOpen(false)}
         >
+          {/* Close Button */}
+          <button 
+            onClick={() => setIsLogoModalOpen(false)}
+            className="absolute top-6 right-6 text-white/80 hover:text-white transition-all duration-300 hover:scale-110"
+          >
+            <svg className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+          
           <div 
-            className="relative bg-gradient-to-br from-amber-50 via-white to-amber-50 p-8 rounded-2xl shadow-2xl shadow-amber-500/30 border-2 border-amber-300/50 max-w-md mx-4 animate-in zoom-in-95 duration-300"
+            className="flex flex-col items-center animate-in zoom-in-95 duration-300"
             onClick={(e) => e.stopPropagation()}
           >
-            {/* Close Button */}
-            <button 
-              onClick={() => setIsLogoModalOpen(false)}
-              className="absolute -top-3 -right-3 bg-amber-600 hover:bg-amber-700 text-white rounded-full p-2 shadow-lg transition-all duration-300 hover:scale-110"
-            >
-              <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-              </svg>
-            </button>
-            
             {/* Logo Image */}
             <img 
               src="/images/logo.png" 
               alt="Fashion by Liza" 
-              className="w-full max-w-xs mx-auto drop-shadow-xl"
+              className="w-80 md:w-96 drop-shadow-2xl"
             />
             
             {/* Go to Home Button */}
@@ -211,9 +241,34 @@ const Layout: React.FC<LayoutProps> = ({ children, onNavigate }) => {
                 setIsLogoModalOpen(false);
                 onNavigate('home');
               }}
-              className="mt-6 w-full bg-gradient-to-r from-amber-600 to-amber-700 text-white py-3 px-6 font-bold uppercase tracking-widest text-xs hover:from-amber-700 hover:to-amber-800 transition-all duration-300 rounded-lg shadow-lg hover:shadow-amber-500/50"
+              className="mt-8 bg-white/10 backdrop-blur-sm text-white py-3 px-10 font-bold uppercase tracking-widest text-xs hover:bg-white/20 transition-all duration-300 border border-white/30"
             >
               Go to Home
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* Shopify Coming Soon Modal */}
+      {showShopifyComingSoon && (
+        <div 
+          className="fixed inset-0 z-[100] flex items-center justify-center bg-black/60 backdrop-blur-sm animate-in fade-in duration-300"
+          onClick={() => setShowShopifyComingSoon(false)}
+        >
+          <div 
+            className="bg-gradient-to-br from-amber-50 via-white to-amber-50 p-8 rounded-lg shadow-2xl border-2 border-amber-300/50 max-w-sm mx-4 text-center animate-in zoom-in-95 duration-300"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="text-5xl mb-4">🛍️</div>
+            <h3 className="text-2xl font-serif text-amber-900 mb-3">Coming Soon!</h3>
+            <p className="text-stone-600 mb-6">
+              Our Shopify store is currently under construction. Stay tuned for an amazing shopping experience!
+            </p>
+            <button 
+              onClick={() => setShowShopifyComingSoon(false)}
+              className="bg-gradient-to-r from-amber-600 to-amber-700 text-white py-2 px-6 font-bold uppercase tracking-widest text-xs hover:from-amber-700 hover:to-amber-800 transition-all duration-300 rounded"
+            >
+              Got it!
             </button>
           </div>
         </div>
